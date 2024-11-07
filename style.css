@@ -1,0 +1,48 @@
+/* Definindo o corpo da página */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+/* Container do pêndulo */
+.pendulum-container {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+/* O fio do pêndulo */
+.pendulum {
+    position: absolute;
+    width: 10px;
+    height: 200px;
+    background-color: #333;
+    top: 0;
+    left: 50%;
+    transform-origin: top center;
+    transition: transform 0.1s ease-in-out;
+}
+
+/* Bola do pêndulo */
+.pendulum:before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: #3498db;
+    border-radius: 50%;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
