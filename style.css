@@ -5,8 +5,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 100vh;
     background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
 }
 
 /* Container do pêndulo */
@@ -20,6 +22,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 
 /* O fio do pêndulo */
@@ -45,4 +48,15 @@ body {
     bottom: -40px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* Estilos da área de informações */
+.info {
+    color: #333;
+    font-size: 18px;
+    text-align: center;
+}
+
+.info p {
+    margin: 5px;
 }
