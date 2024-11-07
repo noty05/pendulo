@@ -1,8 +1,9 @@
 // Variáveis para o controle do movimento do pêndulo
 const g = 9.81;        // Gravidade (m/s²)
-const L = 200;         // Comprimento do fio (em pixels, mas aqui vai ser usado como uma constante proporcional)
+const L = 200;         // Comprimento do fio (em pixels, mas aqui é uma constante proporcional)
 const theta0 = Math.PI / 4; // Amplitude inicial (45 graus ou PI/4 rad)
 const omega = Math.sqrt(g / L); // Frequência angular
+const gamma = 0.05;    // Coeficiente de amortecimento (quanto maior, mais rápido o pêndulo desacelera)
 let t = 0; // Tempo em segundos
 let pendulum = document.getElementById("pendulum");
 
@@ -17,15 +18,15 @@ function updatePendulum(time) {
     let deltaTime = (time - lastTime) / 1000;  // Em segundos
     lastTime = time;
 
-    // Calcular o ângulo do pêndulo usando a fórmula do Movimento Harmônico Simples (MHS)
-    let angle = theta0 * Math.cos(omega * t);  // Movimento harmônico simples
+    // Calcular o ângulo do pêndulo com amortecimento
+    let angle = theta0 * Math.exp(-gamma * t) * Math.cos(omega * t);  // Movimento amortecido
     t += deltaTime;  // Atualiza o tempo
 
     // Aplica a rotação ao pêndulo
     pendulum.style.transform = `rotate(${angle}rad)`;
 
     // Calculando a velocidade média (derivada do ângulo)
-    let angularVelocity = -theta0 * omega * Math.sin(omega * t);
+    let angularVelocity = -theta0 * omega * Math.exp(-gamma * t) * Math.sin(omega * t);
     velocitySum += Math.abs(angularVelocity);
     velocityCount++;
     const avgVelocity = velocitySum / velocityCount;
@@ -33,8 +34,8 @@ function updatePendulum(time) {
     // Exibindo a velocidade média
     document.getElementById("avgVelocity").textContent = avgVelocity.toFixed(2);
 
-    // O movimento é sempre harmônico simples (MHS), então esse é o tipo de movimento
-    document.getElementById("movementType").textContent = "Harmônico Simples";
+    // O movimento é amortecido, então o tipo de movimento será "Amortecido"
+    document.getElementById("movementType").textContent = "Amortecido";
 
     // Requisita o próximo frame para a animação contínua
     requestAnimationFrame(updatePendulum);
